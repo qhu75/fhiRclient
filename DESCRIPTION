@@ -1,0 +1,19 @@
+Package: fhiRclient
+Title: SMART FHIR client
+Version: 0.0.0.9000
+Authors@R: 
+    person(given = "Qiang",
+           family = "Hu",
+           role = c("aut", "cre"),
+           email = "qhu75@gatech.edu")
+Description: Interface to python smart FHIR client `fhirclient`.
+License: Apache License (>= 2.0)
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.1
+Suggests: 
+    testthat,
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr
