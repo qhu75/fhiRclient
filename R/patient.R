@@ -19,3 +19,21 @@ Patient <- function(jsonDict = list()){
 ##     cat(as.character(object@py$"__class__"), "\n")
 ##     show(SimpleList(object@py$as_json()))
 ## })
+
+#' Birth Date
+#'
+#' @param pt A `Resource` object from `Read`.
+#' @export
+BirthDate <- function(pt){
+    stopifnot(is(pt, "Resource"))
+    pt$birthDate$isostring
+}
+
+#' HumanName
+#'
+#' @param pt
+HumanName <- function(pt){
+    stopifnot(is(pt, "Resource"))
+    ct <- Client(api_base = "example.com")
+    lapply(pt$name, function(x)ct$human_name(x))
+}

@@ -4,7 +4,14 @@ test_that("multiplication works", {
 
 ct <- Client(app_id = "my_app", api_base = "https://r4.smarthealthit.org")
 
-pt <- Patient(list(id = "fc200fa2-12c9-4276-ba4a-e0601d424e55"))
-pt <- Read(pt, ct$server)
-pt$birthDate$isostring
+pt <- Patient(list(id = "326b4675-0bc8-4dbd-b406-a5564c282401"))
+pt <- Read(ct$server, pt)
+BirthDate(pt)
 as_json(pt)[1:2]
+
+library(magrittr)
+pt <- Patient(list(id = "326b4675-0bc8-4dbd-b406-a5564c282401"))
+
+ct$server %>% Read(pt) %>% as_json
+ct$server %>% Read(pt) %>% BirthDate
+ct$server %>% Read(pt) %>% HumanName

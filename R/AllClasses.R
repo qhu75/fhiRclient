@@ -5,8 +5,8 @@ Py <- function(x){
     new("Py", py = x)
 }
 
-.validPy <- function(x){
-    is(x@py, "python.builtin.object")
+.validPy <- function(object){
+    is(object@py, "python.builtin.object")
 }
 setValidity("Py", .validPy)
 
@@ -41,8 +41,8 @@ setClass("Resource", contains = "Py")
 #' Create
 #'
 #' @export
-Create <- function(x, server)x
-setMethod("Create", signature("Resource"), function(x, server){
+Create <- function(server, x)x
+setMethod("Create", signature("Resource"), function(server, x){
     r <- x@py$create(server)
     new("Resource", py = r)
 })
@@ -52,8 +52,11 @@ setMethod("Create", signature("Resource"), function(x, server){
 #' Read
 #'
 #' @export
-Read <- function(x, server)x
-setMethod("Read", signature("Resource"), function(x, server){
+Read <- function(server, x){
+    r <- x@py$read(x@py$id, server)
+    new("Resource", py = r)
+}
+setMethod("Read", signature("Resource"), function(server, x){
     r <- x@py$read(x@py$id, server)
     new("Resource", py = r)
 })

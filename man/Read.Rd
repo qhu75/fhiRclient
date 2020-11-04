@@ -4,7 +4,7 @@
 \alias{Read}
 \title{Read}
 \usage{
-Read(x, server)
+Read(server, x)
 }
 \description{
 Read
