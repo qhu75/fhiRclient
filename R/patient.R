@@ -1,8 +1,6 @@
 #' Patient model
 #' @export
-#' @import 
-setClass("Patient",
-         contains = "Resource")
+setClass("Patient", contains = "Resource")
 
 #' Patient class
 #'
@@ -16,8 +14,8 @@ Patient <- function(jsonDict = list()){
     new("Patient", py = pt)
 }
 
-#' @importFrom S4Vectors SimpleList
-setMethod(show, "Patient", function(object){
-    cat(as.character(object@py$"__class__"), "\n")
-    show(SimpleList(object@py$as_json()))
-})
+## #' @importFrom S4Vectors SimpleList
+## setMethod(show, "Patient", function(object){
+##     cat(as.character(object@py$"__class__"), "\n")
+##     show(SimpleList(object@py$as_json()))
+## })

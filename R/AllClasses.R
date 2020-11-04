@@ -1,20 +1,69 @@
-#' Resources
+#' Python object
 #'
-setClass("Resource",
-         slots = list(py = "ANY"))
+setClass("Py", slots = list(py = "ANY"))
+Py <- function(x){
+    new("Py", py = x)
+}
 
-create <- function(x, server)x
-setMethod("create", signature("Resource"), function(x, server){
-    x@py$create(server)
+.validPy <- function(x){
+    is(x@py, "python.builtin.object")
+}
+setValidity("Py", .validPy)
+
+setMethod(show, "Py", function(object){
+    cat(as.character(object@py$"__class__"), "\n")
+    cat("length:", length(names(object@py)), "\n")
+    cat("names:", paste(head(names(object@py), 3), collapse = " "), "...\n")
 })
 
-setGeneric("create")
+#' Extract input values by name
+#' @importFrom S4Vectors wmsg
+#' @export
+setMethod("$", "Py", function(x, name){
+    if(name %in% names(x@py)){
+        x@py[[name]]
+    }else{
+        stop(wmsg("the '", name, "' does not exist"))
+    }
+})
 
-## as_json <- function(x){
-##     x@py$as_json()
-## }
+setMethod("names", "Py", function(x){
+    names(x@py)
+})
+setGeneric("$")
+setGeneric("names")
+
+#' Resource
+#'
+#' @export
+setClass("Resource", contains = "Py")
+
+#' Create
+#'
+#' @export
+Create <- function(x, server)x
+setMethod("Create", signature("Resource"), function(x, server){
+    r <- x@py$create(server)
+    new("Resource", py = r)
+})
+
+## setGeneric("Create")
+
+#' Read
+#'
+#' @export
+Read <- function(x, server)x
+setMethod("Read", signature("Resource"), function(x, server){
+    r <- x@py$read(x@py$id, server)
+    new("Resource", py = r)
+})
+
+## setGeneric("Read")
+
+#' as json
+#'
+#' @export
 as_json <- function(x)x@py
 setMethod("as_json", signature("Resource"), function(x){
     x@py$as_json()
 })
-setGeneric("as_json")

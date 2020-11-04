@@ -1,4 +1,5 @@
-##' @importFrom reticulate import py_run_string
+# Python package
+#' @importFrom reticulate import py_run_string
 #' @import reticulate
 .fhirclient <- local({
     .fhirclient <- NULL
