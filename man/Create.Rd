@@ -4,7 +4,12 @@
 \alias{Create}
 \title{Create}
 \usage{
-Create(server, x)
+Create(ct, x)
+}
+\arguments{
+\item{ct}{The \code{Client} returned object.}
+
+\item{x}{The resource to create.}
 }
 \description{
 Create

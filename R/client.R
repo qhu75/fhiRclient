@@ -8,6 +8,7 @@
 #' @param scope Space-separated list of scopes to request, if other than default.
 #' @param launch_token The launch token.
 #' @param state The client state.
+#' @export
 #' @examples
 #' 
 #' settings = list('app_id'= 'my_web_app', 'api_base'= 'https://r4.smarthealthit.org')

@@ -3,7 +3,7 @@
 \docType{class}
 \name{Resource-class}
 \alias{Resource-class}
-\title{Resource}
+\title{Resource class}
 \description{
-Resource
+Resource class
 }

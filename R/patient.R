@@ -29,10 +29,10 @@ BirthDate <- function(pt){
     pt$birthDate$isostring
 }
 
-#' HumanName
+#' getName
 #'
-#' @param pt
-HumanName <- function(pt){
+#' @param pt Extract full name
+getName <- function(pt){
     stopifnot(is(pt, "Resource"))
     ct <- Client(api_base = "example.com")
     lapply(pt$name, function(x)ct$human_name(x))
