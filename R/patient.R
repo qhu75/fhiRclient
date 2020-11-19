@@ -33,6 +33,7 @@ BirthDate <- function(pt){
 #' getName
 #'
 #' @param pt Extract full name
+#' @export
 getName <- function(pt){
     stopifnot(is(pt, "Resource"))
     ct <- Client(api_base = "example.com")

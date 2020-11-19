@@ -14,6 +14,105 @@ knitr::opts_chunk$set(
 )
 ```
 
+# Introduction
+The R package is developed to implement the FHIR client with essential features of authentication, CRUD operations, bundle search, and data structures for the FHIR resources. The package is built based on the python library `fhircient` and S4 class. Tidy-style functions were developed for the clinial data manipulation more friendly.
+
+# Import the package
+To get started, first we need to load the package.
 ```{r setup}
 library(fhiRclient)
+library(dplyr)
+```
+
+The dependent python `fhirclient` can be installed from the build-in method. The latest version can be installed from its github repository directly for the version of R4 support.
+```{r, eval=FALSE}
+install_fhirclient(version = "latest")
+```
+
+# Building connection
+```{r}
+ct <- Client(app_id = "my_app",
+             api_base = "https://r4.smarthealthit.org")
+ct
+```
+
+# CRUD functions
+## Read a Patient record
+To read a patient record and convert it to json list.
+```{r}
+pt <- Patient(list(id = "326b4675-0bc8-4dbd-b406-a5564c282401"))
+ct %>% Read(pt) %>% as_json %>% as_json_tbl
+```
+
+To read a patient and get the birth date.
+```{r}
+ct %>% Read(pt) %>% BirthDate
+```
+
+To read a patient and get the full name.
+```{r}
+ct %>% Read(pt) %>% getName
+```
+
+## Create a new Patient record
+```{r}
+pt1 <- Read(ct, pt)
+pt1$id <- NULL
+newpt <- ct %>% Create(pt1)
+newID <- newpt$id
+newID
+```
+
+## Update a patient record
+An example to add middle name and update the record.
+```{r}
+pt1 <- ct %>% Read(Patient(list(id = newID)))
+pt1 %>% getName
+pt1$name[[1]]$given <- list("Bradly", "Middle")
+update <- ct %>% Update(pt1)
+ct %>% Read(pt1) %>% getName
+```
+
+## Delete a patient record
+```{r}
+ct %>% Delete(pt1)
+```
+
+# Bundle search
+The `Search` function can be used to search for resource bundles with parameters. The `page` option can be specified to look up results from first page or all pages.
+```{r}
+res <- Search(ct, "observation", "Observation",
+              list(code = "http://loinc.org|2339-0"), page = "all")
+res
+```
+
+The `filterBundle` function can be used to extract specific elements. For example, here we extract all the unique reference patients.
+```{r}
+res %>% filterBundle('subject') %>% unique
+```
+
+We can group the results with indexes and convert it to wide table with patients in different columns.
+```{r}
+gres <- res %>% filterBundle("entry.resource") %>% group_index("entry.resource.id")
+gres
+gres[1:44,] %>% tidyr::pivot_wider(names_from = entry.resource.id)
+```
+
+# Data Classes
+Here we have two ways to create a patient model, with `Patient` functon or a general `Model` constructor. 
+```{r}
+pt <- Patient(list(id = "pid"))
+pt <- Model("patient", "Patient", list(id = "pid"))
+```
+
+The function `getModelClass` can be used to query all available classes for a model. The general `Model` function require the resource model name and a data class to build.
+```{r}
+getModelClass("humanname")
+hn <- Model("humanname", "HumanName", list(family = "A", given = list("B", "C")))
+hn
+as_json(hn)
+```
+# SessionInfo
+```{r}
+sessionInfo()
 ```

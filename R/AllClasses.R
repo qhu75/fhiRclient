@@ -100,6 +100,7 @@ setMethod("Read", "Resource", Read)
 #'
 #' @param ct The `Client` returned object.
 #' @param x The resource to update.
+#' @export
 Update <- function(ct, x){
     x@py$update(ct$server)
 }
@@ -109,6 +110,7 @@ setMethod("Update", "Resource", Update)
 #'
 #' @param ct The `Client` returned object.
 #' @param x The resource to update.
+#' @export
 Delete <- function(ct, x){
     x@py$delete(ct$server)
 }
@@ -119,5 +121,7 @@ setMethod("Delete", "Resource", Delete)
 #' @param x A Resource object.
 #' @export
 as_json <- function(x)x@py$as_json()
-setMethod("as_json", signature("Resource"), as_json)
+setMethod("as_json", "Resource", function(x){
+    x@py$as_json()
+})
 

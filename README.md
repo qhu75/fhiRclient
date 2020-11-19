@@ -5,7 +5,13 @@
 ![R-CMD-check](https://github.com/qhu75/fhiRclient/workflows/R-CMD-check/badge.svg?branch=main)
 <!-- badges: end -->
 
-The goal of fhiRclient is to ...
+R FHIR client based on the python `fhirclient` library with more features.
+
+Major feature:
+
+* All CRUD function.
+* Constructor for Resource data models.
+* Search and bundle sets in tidy.
 
 ## Installation
 
@@ -18,10 +24,26 @@ devtools::install_github("qhu75/fhiRclient")
 
 ## Example
 
-This is a basic example which shows you how to solve a common problem:
-
 ``` r
 library(fhiRclient)
-## basic example code
 ```
 
+* Read
+
+``` r
+ct <- Client(app_id = "my_app",
+             api_base = "https://r4.smarthealthit.org")
+pt <- Patient(list(id = "326b4675-0bc8-4dbd-b406-a5564c282401"))
+ct %>% Read(pt) %>% as_json %>% as_json_tbl
+```
+
+* Search
+``` r
+res <- Search(ct, "observation", "Observation",
+              list(code = "http://loinc.org|2339-0"), page = "all")
+```
+
+* More examples
+``` r
+browseVignettes("fhiRclient")
+```

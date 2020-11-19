@@ -1,0 +1,9 @@
+url: https://qhu75.github.io/fhiRclient
+
+home:
+  title: "fhiRclient"
+
+navbar:
+  right:
+    - icon: fa-github
+      href: https://github.com/qhu75/fhiRclient

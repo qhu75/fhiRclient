@@ -17,6 +17,7 @@ Imports: methods, utils, dplyr, httr, stringr, tibble, jsonlite, rlang
 Suggests: 
     testthat,
     knitr,
-    rmarkdown
+    rmarkdown,
+    tidyr
 VignetteBuilder: knitr
 SystemRequirements: fhirclient

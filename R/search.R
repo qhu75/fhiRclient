@@ -68,6 +68,7 @@ as_json_tbl <- function(jsonlist){
 #' @importFrom dplyr filter
 #' @importFrom stringr str_detect
 #' @importFrom rlang .data
+#' @export
 filterBundle <- function(tibble, pattern, column = "name"){
     stopifnot(is(tibble, "tbl_df"))
     stopifnot(column %in% colnames(tibble))
@@ -81,6 +82,7 @@ filterBundle <- function(tibble, pattern, column = "name"){
 #' @param id The index id for each group
 #' @param column The column to group.
 #' @importFrom dplyr group_by_at
+#' @export
 group_index <- function(tibble, id, column = "name"){
     val <- filterBundle(tibble, id)$value
     first_idx <- grep(tibble[[column]][1], tibble[[column]])
