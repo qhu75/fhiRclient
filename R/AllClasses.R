@@ -25,13 +25,12 @@ setMethod(show, "Py", function(object){
 #' @rdname pyclass
 #' @param x A pyclass object
 #' @param name The class name to extract
-#' @importFrom S4Vectors wmsg
 #' @export
 setMethod("$", "Py", function(x, name){
     if(name %in% names(x@py)){
         x@py[[name]]
     }else{
-        stop(wmsg("the '", name, "' does not exist"))
+        stop("the '", name, "' does not exist")
     }
 })
 
@@ -43,7 +42,7 @@ setReplaceMethod("$", "Py", function(x, name, value){
         x@py[[name]] <- value
         return(x)
     }else{
-        stop(wmsg("the '", name, "' does not exist"))
+        stop("the '", name, "' does not exist")
     }
 })
 
