@@ -1,5 +1,5 @@
 Package: fhiRclient
-Title: SMART FHIR client
+Title: SMART FHIR Client
 Version: 0.0.1
 Authors@R: 
     person(given = "Qiang",
