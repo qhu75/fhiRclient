@@ -63,7 +63,7 @@ jobs:
           do
             eval sudo $cmd
           done < <(Rscript -e 'writeLines(remotes::system_requirements("ubuntu", "20.04"))')
-          python -m pip install --upgrade pip
+          sudo apt-get install -y python3-pip
           pip install git+https://github.com/smart-on-fhir/client-py.git
 
       - name: Install dependencies
