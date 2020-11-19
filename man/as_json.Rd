@@ -2,7 +2,7 @@
 % Please edit documentation in R/AllClasses.R
 \name{as_json}
 \alias{as_json}
-\title{as json}
+\title{as_json}
 \usage{
 as_json(x)
 }
@@ -10,5 +10,5 @@ as_json(x)
 \item{x}{A Resource object.}
 }
 \description{
-as json
+as_json
 }

@@ -73,9 +73,10 @@ py <- function(x)x@py
 #' @param x The resource to create.
 #' @export
 Create <- function(ct, x){
+    stopifnot(is(x, "Resource"))
     x@py$create(ct$server)
 }
-setMethod("Create", signature("Resource"), Create)
+
 
 ## setGeneric("Create")
 
@@ -85,10 +86,11 @@ setMethod("Create", signature("Resource"), Create)
 #' @param x The resource to Read.
 #' @export
 Read <- function(ct, x){
+    stopifnot(is(x, "Resource"))
     r <- x@py$read(x@py$id, ct$server)
     new("Resource", py = r)
 }
-setMethod("Read", "Resource", Read)
+
 ## setMethod("Read", signature("Resource"), function(ct, x){
 ##     r <- x@py$read(x@py$id, ct$server)
 ##     new("Resource", py = r)
@@ -102,9 +104,9 @@ setMethod("Read", "Resource", Read)
 #' @param x The resource to update.
 #' @export
 Update <- function(ct, x){
+    stopifnot(is(x, "Resource"))
     x@py$update(ct$server)
 }
-setMethod("Update", "Resource", Update)
 
 #' Delete
 #'
@@ -112,16 +114,17 @@ setMethod("Update", "Resource", Update)
 #' @param x The resource to update.
 #' @export
 Delete <- function(ct, x){
+    stopifnot(is(x, "Resource"))
     x@py$delete(ct$server)
 }
-setMethod("Delete", "Resource", Delete)
 
-#' as json
+#' as_json
 #'
 #' @param x A Resource object.
 #' @export
-as_json <- function(x)x@py$as_json()
-setMethod("as_json", "Resource", function(x){
+as_json <- function(x){
+    stopifnot(is(x, "Resource"))
     x@py$as_json()
-})
+}
+
 
