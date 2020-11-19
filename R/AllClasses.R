@@ -1,5 +1,9 @@
 #' Python object
 #'
+#' @rdname pyclass
+#' @param x A python class
+#' @importFrom utils head
+#' @export
 setClass("Py", slots = list(py = "ANY"))
 Py <- function(x){
     new("Py", py = x)
@@ -17,6 +21,10 @@ setMethod(show, "Py", function(object){
 })
 
 #' Extract input values by name
+#'
+#' @rdname pyclass
+#' @param x A pyclass object
+#' @param name The class name to extract
 #' @importFrom S4Vectors wmsg
 #' @export
 setMethod("$", "Py", function(x, name){
@@ -27,6 +35,9 @@ setMethod("$", "Py", function(x, name){
     }
 })
 
+#' @rdname pyclass
+#' @param value The value to assign
+#' @export
 setReplaceMethod("$", "Py", function(x, name, value){
     if(name %in% names(x@py)){
         x@py[[name]] <- value
@@ -36,6 +47,8 @@ setReplaceMethod("$", "Py", function(x, name, value){
     }
 })
 
+#' @rdname pyclass
+#' @export
 setMethod("names", "Py", function(x){
     names(x@py)
 })
@@ -48,6 +61,8 @@ setGeneric("names")
 setClass("Resource", contains = "Py")
 
 #' get py slot
+#'
+#' @rdname pyclass
 #' @param x Resource object
 #' @return python object
 #' @export
@@ -102,8 +117,8 @@ setMethod("Delete", "Resource", Delete)
 
 #' as json
 #'
+#' @param x A Resource object.
 #' @export
-as_json <- function(x)x@py
-setMethod("as_json", signature("Resource"), function(x){
-    x@py$as_json()
-})
+as_json <- function(x)x@py$as_json()
+setMethod("as_json", signature("Resource"), as_json)
+

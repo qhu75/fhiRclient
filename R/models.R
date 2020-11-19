@@ -1,11 +1,11 @@
-#' getModel
+#' getModel classes
 #'
 #' @param model The resource model to retrieve
 #' @return A list of classes in the model
 #' @export
 #' @examples
-#' getModel('patient')
-getModel <- function(model){
+#' getModelClass('patient')
+getModelClass <- function(model){
     md <- .fhirclient()$models[[model]]
     pyn <- names(md)
     tid <- sapply(pyn, function(x)is(md[[x]], "python.builtin.type"))
@@ -21,10 +21,11 @@ getModel <- function(model){
 #' @return A `Resource` object
 #' @export
 #' @examples
-#' getModel('patient')
+#' getModelClass('patient')
 #' Model("patient", "Patient", list(id = "test"))
 Model <- function(model, class, jsonDict = list()){
-    mds <- getModel(model)
+    mds <- getModelClass(model)
+    stopifnot(class %in% names(mds))
     cl <- mds[[class]]
     new("Resource", py = cl(jsonDict))
 }

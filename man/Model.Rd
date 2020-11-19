@@ -21,6 +21,6 @@ A \code{Resource} object
 Model
 }
 \examples{
-getModel('patient')
+getModelClass('patient')
 Model("patient", "Patient", list(id = "test"))
 }

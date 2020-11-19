@@ -23,6 +23,7 @@ Patient <- function(jsonDict = list()){
 #' Birth Date
 #'
 #' @param pt A `Resource` object from `Read`.
+#' @importFrom methods is new
 #' @export
 BirthDate <- function(pt){
     stopifnot(is(pt, "Resource"))

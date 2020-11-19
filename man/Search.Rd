@@ -24,12 +24,16 @@ Search(
 \item{where}{The search parameters.}
 
 \item{include}{The \code{include} parameter to include other resources.}
+
+\item{page}{To return first or all pages of the search results.}
+
+\item{tidy}{Whether to return a tibble object.}
 }
 \description{
 Search records
 }
 \examples{
-\donotrun{
+\dontrun{
 Search(ct, "observation", "Observation",
 list(code = "http://loinc.org|2339-0"), include = "subject")
 }

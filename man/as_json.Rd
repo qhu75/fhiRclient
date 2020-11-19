@@ -6,6 +6,9 @@
 \usage{
 as_json(x)
 }
+\arguments{
+\item{x}{A Resource object.}
+}
 \description{
 as json
 }

@@ -4,7 +4,14 @@
 \alias{filterBundle}
 \title{filter by names}
 \usage{
-filterBundle(tibble, pattern)
+filterBundle(tibble, pattern, column = "name")
+}
+\arguments{
+\item{tibble}{The \code{tibble} object from search.}
+
+\item{pattern}{The filter pattern to match in the name column.}
+
+\item{column}{The default pattern match column.}
 }
 \description{
 filter by names
