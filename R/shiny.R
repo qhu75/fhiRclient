@@ -1,7 +1,7 @@
 
 #' Shiny Demo
 #'
-#' @importFrom dplyr %>%
+#' @import dplyr
 #' @import shiny
 #' @export
 ShinyDemo <- function(){
