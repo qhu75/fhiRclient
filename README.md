@@ -47,3 +47,8 @@ res <- Search(ct, "observation", "Observation",
 ``` r
 browseVignettes("fhiRclient")
 ```
+
+* Shiny demo
+``` r
+ShinyDemo()
+```

@@ -112,6 +112,12 @@ hn <- Model("humanname", "HumanName", list(family = "A", given = list("B", "C"))
 hn
 as_json(hn)
 ```
+
+# Shiny Demo
+```{r, eval=FALSE}
+ShinyDemo()
+```
+
 # SessionInfo
 ```{r}
 sessionInfo()
