@@ -15,6 +15,12 @@ Major feature:
 
 ## Installation
 
+Install the latest python library `fhirclient` first.
+
+``` bash
+pip install git+https://github.com/smart-on-fhir/client-py.git
+```
+
 You can install the released version of fhiRclient from [github](https://github.com/qhu75/fhiRclient) with:
 
 ``` r
