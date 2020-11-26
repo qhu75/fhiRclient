@@ -160,7 +160,7 @@
 <span class="va">newpt</span> <span class="op">&lt;-</span> <span class="va">ct</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/Create.html">Create</a></span><span class="op">(</span><span class="va">pt1</span><span class="op">)</span>
 <span class="va">newID</span> <span class="op">&lt;-</span> <span class="va">newpt</span><span class="op">$</span><span class="va">id</span>
 <span class="va">newID</span>
-<span class="co">#&gt; [1] "713339"</span></code></pre></div>
+<span class="co">#&gt; [1] "774785"</span></code></pre></div>
 </div>
 <div id="update-a-patient-record" class="section level2">
 <h2 class="hasAnchor">
@@ -194,7 +194,7 @@
 <span class="co">#&gt; [1] "informational"</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $issue[[1]]$diagnostics</span>
-<span class="co">#&gt; [1] "Successfully deleted 1 resource(s) in 6ms"</span></code></pre></div>
+<span class="co">#&gt; [1] "Successfully deleted 1 resource(s) in 7ms"</span></code></pre></div>
 </div>
 </div>
 <div id="bundle-search" class="section level1">
@@ -205,11 +205,11 @@
 <code class="sourceCode R"><span class="va">res</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/Search.html">Search</a></span><span class="op">(</span><span class="va">ct</span>, <span class="st">"observation"</span>, <span class="st">"Observation"</span>,
               <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>code <span class="op">=</span> <span class="st">"http://loinc.org|2339-0"</span><span class="op">)</span>, page <span class="op">=</span> <span class="st">"all"</span><span class="op">)</span>
 <span class="va">res</span>
-<span class="co">#&gt; # A tibble: 88,583 x 2</span>
+<span class="co">#&gt; # A tibble: 88,640 x 2</span>
 <span class="co">#&gt;    name                       value                                             </span>
 <span class="co">#&gt;    &lt;chr&gt;                      &lt;chr&gt;                                             </span>
-<span class="co">#&gt;  1 id                         8496f7b8-25db-46df-98f0-d267687868d2              </span>
-<span class="co">#&gt;  2 meta.lastUpdated           2020-11-19T16:48:33.952-05:00                     </span>
+<span class="co">#&gt;  1 id                         9b41529c-8e1d-4c2e-adf7-840bf47c5216              </span>
+<span class="co">#&gt;  2 meta.lastUpdated           2020-11-25T21:55:54.111-05:00                     </span>
 <span class="co">#&gt;  3 entry.fullUrl              https://r4.smarthealthit.org/Observation/a8dbb860…</span>
 <span class="co">#&gt;  4 entry.resource.id          a8dbb860-4190-46da-af7b-11bf7c7f9ffd              </span>
 <span class="co">#&gt;  5 entry.resource.meta.lastU… 2019-06-06T02:51:24.277-04:00                     </span>
@@ -218,11 +218,11 @@
 <span class="co">#&gt;  8 entry.resource.meta.versi… 3                                                 </span>
 <span class="co">#&gt;  9 entry.resource.category.c… laboratory                                        </span>
 <span class="co">#&gt; 10 entry.resource.category.c… laboratory                                        </span>
-<span class="co">#&gt; # … with 88,573 more rows</span></code></pre></div>
+<span class="co">#&gt; # … with 88,630 more rows</span></code></pre></div>
 <p>The <code>filterBundle</code> function can be used to extract specific elements. For example, here we extract all the unique reference patients.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">res</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/filterBundle.html">filterBundle</a></span><span class="op">(</span><span class="st">'subject'</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="va">unique</span>
-<span class="co">#&gt; # A tibble: 267 x 2</span>
+<span class="co">#&gt; # A tibble: 269 x 2</span>
 <span class="co">#&gt;    name                             value                                       </span>
 <span class="co">#&gt;    &lt;chr&gt;                            &lt;chr&gt;                                       </span>
 <span class="co">#&gt;  1 entry.resource.subject.reference Patient/948e608d-e408-4788-8cf2-8157c49c2940</span>
@@ -235,13 +235,13 @@
 <span class="co">#&gt;  8 entry.resource.subject.reference Patient/32cd9fa4-7a32-4de1-bce2-548e37151540</span>
 <span class="co">#&gt;  9 entry.resource.subject.reference Patient/2a86d65b-06c7-4100-9d43-948921b49605</span>
 <span class="co">#&gt; 10 entry.resource.subject.reference Patient/6bb3d38f-ae2e-40cf-a31e-baaea0b8bcc1</span>
-<span class="co">#&gt; # … with 257 more rows</span></code></pre></div>
+<span class="co">#&gt; # … with 259 more rows</span></code></pre></div>
 <p>We can group the results with indexes and convert it to wide table with patients in different columns.</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">gres</span> <span class="op">&lt;-</span> <span class="va">res</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/filterBundle.html">filterBundle</a></span><span class="op">(</span><span class="st">"entry.resource"</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/group_index.html">group_index</a></span><span class="op">(</span><span class="st">"entry.resource.id"</span><span class="op">)</span>
 <span class="va">gres</span>
-<span class="co">#&gt; # A tibble: 74,360 x 3</span>
-<span class="co">#&gt; # Groups:   entry.resource.id [3,380]</span>
+<span class="co">#&gt; # A tibble: 74,405 x 3</span>
+<span class="co">#&gt; # Groups:   entry.resource.id [3,383]</span>
 <span class="co">#&gt;    name                  value                         entry.resource.id        </span>
 <span class="co">#&gt;    &lt;chr&gt;                 &lt;chr&gt;                         &lt;chr&gt;                    </span>
 <span class="co">#&gt;  1 entry.resource.id     a8dbb860-4190-46da-af7b-11bf… a8dbb860-4190-46da-af7b-…</span>
@@ -254,7 +254,7 @@
 <span class="co">#&gt;  8 entry.resource.categ… http://terminology.hl7.org/C… a8dbb860-4190-46da-af7b-…</span>
 <span class="co">#&gt;  9 entry.resource.code.… 2339-0                        a8dbb860-4190-46da-af7b-…</span>
 <span class="co">#&gt; 10 entry.resource.code.… Glucose                       a8dbb860-4190-46da-af7b-…</span>
-<span class="co">#&gt; # … with 74,350 more rows</span>
+<span class="co">#&gt; # … with 74,395 more rows</span>
 <span class="va">gres</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">44</span>,<span class="op">]</span> <span class="op">%&gt;%</span> <span class="fu">tidyr</span><span class="fu">::</span><span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_wider.html">pivot_wider</a></span><span class="op">(</span>names_from <span class="op">=</span> <span class="va">entry.resource.id</span><span class="op">)</span>
 <span class="co">#&gt; # A tibble: 22 x 3</span>
 <span class="co">#&gt;    name             `a8dbb860-4190-46da-af7b-11bf… `0c115a64-8e55-411c-bcc3-afe…</span>
@@ -295,10 +295,16 @@
 <span class="co">#&gt; $given</span>
 <span class="co">#&gt; [1] "B" "C"</span></code></pre></div>
 </div>
+<div id="shiny-demo" class="section level1">
+<h1 class="hasAnchor">
+<a href="#shiny-demo" class="anchor"></a>Shiny Demo</h1>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/ShinyDemo.html">ShinyDemo</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+</div>
 <div id="sessioninfo" class="section level1">
 <h1 class="hasAnchor">
 <a href="#sessioninfo" class="anchor"></a>SessionInfo</h1>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/sessionInfo.html">sessionInfo</a></span><span class="op">(</span><span class="op">)</span>
 <span class="co">#&gt; R version 4.0.2 (2020-06-22)</span>
 <span class="co">#&gt; Platform: x86_64-apple-darwin19.6.0 (64-bit)</span>
@@ -317,18 +323,19 @@
 <span class="co">#&gt; [1] dplyr_1.0.2      fhiRclient_0.0.1 reticulate_1.18 </span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; loaded via a namespace (and not attached):</span>
-<span class="co">#&gt;  [1] Rcpp_1.0.5        compiler_4.0.2    pillar_1.4.6      tools_4.0.2      </span>
-<span class="co">#&gt;  [5] digest_0.6.27     jsonlite_1.7.1    evaluate_0.14     memoise_1.1.0    </span>
-<span class="co">#&gt;  [9] lifecycle_0.2.0   tibble_3.0.4      lattice_0.20-41   pkgconfig_2.0.3  </span>
-<span class="co">#&gt; [13] rlang_0.4.8       Matrix_1.2-18     cli_2.1.0         curl_4.3         </span>
-<span class="co">#&gt; [17] yaml_2.2.1        pkgdown_1.6.1     xfun_0.19         httr_1.4.2       </span>
-<span class="co">#&gt; [21] stringr_1.4.0     knitr_1.30        desc_1.2.0        generics_0.1.0   </span>
-<span class="co">#&gt; [25] fs_1.5.0          vctrs_0.3.5       systemfonts_0.3.2 rprojroot_2.0.2  </span>
-<span class="co">#&gt; [29] grid_4.0.2        tidyselect_1.1.0  glue_1.4.2        R6_2.5.0         </span>
-<span class="co">#&gt; [33] textshaping_0.2.1 fansi_0.4.1       rmarkdown_2.5     tidyr_1.1.2      </span>
-<span class="co">#&gt; [37] purrr_0.3.4       magrittr_2.0.1    htmltools_0.5.0   ellipsis_0.3.1   </span>
-<span class="co">#&gt; [41] assertthat_0.2.1  ragg_0.4.0        utf8_1.1.4        stringi_1.5.3    </span>
-<span class="co">#&gt; [45] crayon_1.3.4</span></code></pre></div>
+<span class="co">#&gt;  [1] Rcpp_1.0.5        later_1.1.0.1     compiler_4.0.2    pillar_1.4.7     </span>
+<span class="co">#&gt;  [5] tools_4.0.2       digest_0.6.27     jsonlite_1.7.1    evaluate_0.14    </span>
+<span class="co">#&gt;  [9] memoise_1.1.0     lifecycle_0.2.0   tibble_3.0.4      lattice_0.20-41  </span>
+<span class="co">#&gt; [13] pkgconfig_2.0.3   rlang_0.4.8       Matrix_1.2-18     cli_2.2.0        </span>
+<span class="co">#&gt; [17] shiny_1.5.0       curl_4.3          yaml_2.2.1        pkgdown_1.6.1    </span>
+<span class="co">#&gt; [21] xfun_0.19         fastmap_1.0.1     httr_1.4.2        stringr_1.4.0    </span>
+<span class="co">#&gt; [25] knitr_1.30        desc_1.2.0        generics_0.1.0    fs_1.5.0         </span>
+<span class="co">#&gt; [29] vctrs_0.3.5       systemfonts_0.3.2 rprojroot_2.0.2   grid_4.0.2       </span>
+<span class="co">#&gt; [33] tidyselect_1.1.0  glue_1.4.2        R6_2.5.0          textshaping_0.2.1</span>
+<span class="co">#&gt; [37] fansi_0.4.1       rmarkdown_2.5     tidyr_1.1.2       purrr_0.3.4      </span>
+<span class="co">#&gt; [41] magrittr_2.0.1    promises_1.1.1    htmltools_0.5.0   ellipsis_0.3.1   </span>
+<span class="co">#&gt; [45] assertthat_0.2.1  xtable_1.8-4      mime_0.9          httpuv_1.5.4     </span>
+<span class="co">#&gt; [49] ragg_0.4.0        utf8_1.1.4        stringi_1.5.3     crayon_1.3.4</span></code></pre></div>
 </div>
   </div>
 
