@@ -1,6 +1,6 @@
 Package: fhiRclient
 Title: SMART FHIR Client
-Version: 0.0.1
+Version: 0.0.2
 Authors@R: 
     person(given = "Qiang",
            family = "Hu",

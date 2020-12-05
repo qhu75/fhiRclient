@@ -28,6 +28,8 @@ install_fhirclient <- function(envname = "fhirclient",
         }else if(method == "conda"){
             conda_create(envname)
             conda_install(envname, pkgs, pip = TRUE)
+        }else if(method == "pip"){
+            system(paste(method, "install --user", pkgs))
         }
     }
     if(method == "conda"){
